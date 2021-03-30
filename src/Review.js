@@ -7,14 +7,14 @@ const Review = () => {
   const [index, setIndex] = useState(0)
   const {name, job, image, text} = people[index]
 
-  const checkArrayLength = (length) => {
-    if(length > people.length - 1 ) {
+  const checkArrayLength = (personNumber) => {
+    if(personNumber > people.length - 1 ) {
       return 0
     }
-    if(length < 0 ) {
+    if(personNumber < 0 ) {
       return people.length - 1
     }
-    return length
+    return personNumber
   }
 
   const nextPerson = ()  => {
@@ -29,6 +29,14 @@ const Review = () => {
       let newIndex = index - 1
       return checkArrayLength(newIndex)
     })
+  }
+
+  const randomPerson = () => {
+    let randomNumber = Math.floor(Math.random() * people.length)
+    if(randomNumber === index) {
+      randomNumber = index + 1
+    }
+    setIndex(checkArrayLength(randomNumber))
   }
 
 
@@ -51,7 +59,7 @@ const Review = () => {
             <FaChevronRight />
           </button>
         </div>
-        <button className='random-btn'>
+        <button onClick={randomPerson} className='random-btn'>
           surprise me
         </button>
       </article>
